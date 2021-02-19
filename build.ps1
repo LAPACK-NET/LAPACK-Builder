@@ -1,3 +1,5 @@
+$out_folder="./src/Lapack.Net/DLLs"
+
 Write-Host "Remove 'build' folder if exists"
 Remove-Item -LiteralPath "./build" -Force -Recurse -ErrorAction SilentlyContinue
 Write-Host "Create 'build' folder"
@@ -51,11 +53,11 @@ cmake --build . --clean-first --config Release
 
 Write-Host "Removing previous builded binaries..."
 cd ".."
-Remove-Item -LiteralPath "./bin" -Force -Recurse
+Remove-Item -LiteralPath $out_folder -Force -Recurse
 
 Write-Host "Copying new binaries to bin folder..."
-mkdir "./bin/" | Out-Null
-copy "./build/bin/*.dll" "./bin"
-copy "$($tools_folder)/mingw64/bin/*.dll" "./bin"
+mkdir $out_folder | Out-Null
+copy "./build/bin/*.dll" $out_folder
+copy "$($tools_folder)/mingw64/bin/*.dll" $out_folder
 
 Write-Host "Done"

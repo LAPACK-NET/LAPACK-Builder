@@ -4,10 +4,50 @@
 		<TargetFramework>netstandard1.6</TargetFramework>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<OutputType>Library</OutputType>
+
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-	  <Exec Command="copy $(SolutionDir)..\bin\*.dll $(OutDir)&#xD;&#xA;" />
-	</Target>
+	<ItemGroup>
+	  <None Remove="DLLs\libatomic-1.dll" />
+	  <None Remove="DLLs\libblas.dll" />
+	  <None Remove="DLLs\libgcc_s_sjlj-1.dll" />
+	  <None Remove="DLLs\libgomp-1.dll" />
+	  <None Remove="DLLs\liblapack.dll" />
+	  <None Remove="DLLs\libquadmath-0.dll" />
+	  <None Remove="DLLs\libssp-0.dll" />
+	  <None Remove="DLLs\libstdc++-6.dll" />
+	  <None Remove="DLLs\libwinpthread-1.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="DLLs\libatomic-1.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="DLLs\libblas.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="DLLs\libgcc_s_sjlj-1.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="DLLs\libgomp-1.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="DLLs\liblapack.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="DLLs\libquadmath-0.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="DLLs\libssp-0.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="DLLs\libstdc++-6.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="DLLs\libwinpthread-1.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
 
 </Project>

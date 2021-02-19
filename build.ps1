@@ -1,5 +1,16 @@
 $out_folder="./src/Lapack.Net/native"
 
+if ((Get-Command "git.exe" -ErrorAction SilentlyContinue) -and (Test-Path ".git"))
+{
+    cd "./lapack"
+    git checkout "tags/v3.9.0"
+    cd ".."
+}
+else
+{
+    Write-Host "git is not available"
+}
+
 Write-Host "Remove 'build' folder if exists"
 Remove-Item -LiteralPath "./build" -Force -Recurse -ErrorAction SilentlyContinue
 Write-Host "Create 'build' folder"

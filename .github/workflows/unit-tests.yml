@@ -15,7 +15,7 @@ env:
 jobs:
   test:
     runs-on: windows-latest
-
+    name: Run unit tests
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

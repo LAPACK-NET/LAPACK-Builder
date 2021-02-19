@@ -1,37 +1,61 @@
-rmdir /S /Q "./build" | Out-Null
+Write-Host "Remove 'build' folder if exists"
+Remove-Item -LiteralPath "./build" -Force -Recurse -ErrorAction SilentlyContinue
+Write-Host "Create 'build' folder"
 mkdir "./build" | Out-Null
 cd "./build"
 
 $tools_folder=(Resolve-Path -Path "../tools").Path | % {$_ -replace '\\','/'}
 $lapack_path="../lapack"
 
-$mingw_folder=$tools_folder+"/mingw64/bin"
-$gcc_path=$mingw_folder+"/gcc.exe"
-$gcpp_path=$mingw_folder+"/g++.exe"
-$gfortran_path=$mingw_folder+"/gfortran.exe"
+$Env:Path = $tools_folder+"/mingw64/bin;" + $Env:Path
 
-if (Get-Command "ninja.exe" -ErrorAction SilentlyContinue)
+Write-Host "Detecting ninja..."
+if (!(Get-Command "ninja.exe" -ErrorAction SilentlyContinue))
 {
-    $ninja_path="ninja.exe"
-}
-else
-{
-    $ninja_path=$tools_folder+"/ninja/ninja.exe"
-}
-if (Get-Command "cmake.exe" -ErrorAction SilentlyContinue)
-{
-    $cmake_path="cmake.exe"
-}
-else
-{
-    $cmake_path=$tools_folder+"/cmake/bin/cmake.exe"
+    $Env:Path = $tools_folder+"/ninja;" + $Env:Path
 }
 
-&"$($cmake_path)" $lapack_path -GNinja -DCMAKE_MAKE_PROGRAM="$($ninja_path)" -DCMAKE_CXX_COMPILER="$($gcpp_path)" -DCMAKE_C_COMPILER="$($gcc_path)" -DCMAKE_Fortran_COMPILER="$($gfortran_path)" -DBUILD_SHARED_LIBS=ON -DCMAKE_GNUtoMS=ON -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--allow-multiple-definition"
-&"$($cmake_path)" --build .
+Write-Host "Detecting cmake..."
+if (!(Get-Command "cmake.exe" -ErrorAction SilentlyContinue))
+{
+    $Env:Path = $tools_folder+"/cmake/bin;" + $Env:Path
+}
 
+Write-Host "Generating ninja.build..."
+cmake $lapack_path -GNinja `
+    -D CMAKE_CXX_COMPILER="g++" `
+    -D CMAKE_C_COMPILER="gcc" `
+    -D CMAKE_Fortran_COMPILER="gfortran" `
+    -D BUILD_SHARED_LIBS=ON `
+    -D CMAKE_GNUtoMS=ON `
+    -D BUILD_DEPRECATED=OFF `
+    -D BLAS++=OFF `
+    -D LAPACK++=OFF `
+    -D CBLAS=OFF `
+    -D LAPACKE=OFF `
+    -D LAPACKE_WITH_TMG=OFF `
+    -D BUILD_COMPLEX=ON `
+    -D BUILD_COMPLEX16=ON `
+    -D BUILD_DOUBLE=ON `
+    -D BUILD_SINGLE=ON `
+    -D BUILD_TESTING=OFF `
+    -D BUILD_INDEX64=OFF `
+    -D USE_XBLAS=OFF `
+    -D USE_OPTIMIZED_BLAS=OFF `
+    -D USE_OPTIMIZED_LAPACK=OFF `
+    -D CMAKE_SHARED_LINKER_FLAGS="-Wl,--allow-multiple-definition" `
+    -D CMAKE_BUILD_TYPE=Release
+
+Write-Host "Building project..."
+cmake --build . --clean-first --config Release
+
+Write-Host "Removing previous builded binaries..."
 cd ".."
 Remove-Item -LiteralPath "./bin" -Force -Recurse
-mkdir "./bin/"
+
+Write-Host "Copying new binaries to bin folder..."
+mkdir "./bin/" | Out-Null
 copy "./build/bin/*.dll" "./bin"
-copy "$($mingw_folder)/*.dll" "./bin"
+copy "$($tools_folder)/mingw64/bin/*.dll" "./bin"
+
+Write-Host "Done"

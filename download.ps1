@@ -2,7 +2,7 @@ $7zip_installer_exe = "7z1900-x64.exe"
 
 $working_folder = "./tools"
 
-Remove-Item -LiteralPath $working_folder -Force -Recurse | Out-Null
+Remove-Item -LiteralPath $working_folder -Force -Recurse -ErrorAction SilentlyContinue
 mkdir $working_folder | Out-Null
 cd $working_folder
 
@@ -86,6 +86,11 @@ if (!(Get-Command "7z.exe" -ErrorAction SilentlyContinue))
     Remove-Item -LiteralPath "./$($7zip_installer_exe)" -Force
     Remove-Item -LiteralPath "./7za920" -Force -Recurse
     Remove-Item -LiteralPath "./7zip" -Force -Recurse
+}
+
+if(!(Get-Command "C:\Program Files (x86)\Microsoft Visual Studio\*\Community\VC\Auxiliary\Build\vcvarsall.bat" -ErrorAction SilentlyContinue))
+{
+    Write-Warning "Visual studio command prompt is not installed or not in default location"
 }
 
 Write-Host "Done"

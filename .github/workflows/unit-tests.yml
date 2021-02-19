@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-          submodules: true
+        submodules: true
       
       - name: Download dependencies
         run: .\download.ps1

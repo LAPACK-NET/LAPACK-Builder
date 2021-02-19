@@ -22,14 +22,15 @@ jobs:
         with:
           submodules: true
       
-      - name: Download dependencies
-        run: .\download.ps1
-        shell: powershell
-        
-      - name: Build lapack
-        run: .\build.ps1
-        shell: powershell
-        
+      # for now binaries are included, uncomment on remove
+      #- name: Download dependencies
+      #  run: .\download.ps1
+      #  shell: powershell
+      #  
+      #- name: Build lapack
+      #  run: .\build.ps1
+      #  shell: powershell
+      #  
       - name: Setup .NET Core 3.1 @ Latest
         uses: actions/setup-dotnet@v1.7.2
         with:

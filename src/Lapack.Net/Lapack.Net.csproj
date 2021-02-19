@@ -9,31 +9,31 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="libatomic-1.dll">
+	  <EmbeddedResource Include="native\libatomic-1.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="libblas.dll">
+	  <EmbeddedResource Include="native\libblas.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="libgcc_s_sjlj-1.dll">
+	  <EmbeddedResource Include="native\libgcc_s_sjlj-1.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="libgomp-1.dll">
+	  <EmbeddedResource Include="native\libgomp-1.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="liblapack.dll">
+	  <EmbeddedResource Include="native\liblapack.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="libquadmath-0.dll">
+	  <EmbeddedResource Include="native\libquadmath-0.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="libssp-0.dll">
+	  <EmbeddedResource Include="native\libssp-0.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="libstdc++-6.dll">
+	  <EmbeddedResource Include="native\libstdc++-6.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="libwinpthread-1.dll">
+	  <EmbeddedResource Include="native\libwinpthread-1.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>

@@ -1,4 +1,4 @@
-$out_folder="./src/Lapack.Net/DLLs"
+$out_folder="./src/Lapack.Net/native"
 
 Write-Host "Remove 'build' folder if exists"
 Remove-Item -LiteralPath "./build" -Force -Recurse -ErrorAction SilentlyContinue
